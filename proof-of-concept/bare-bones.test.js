@@ -1,5 +1,5 @@
+// TICKET 1
 import { test } from "vitest";
 
-export function sum(a, b) {
-  return a + b;
-}
+// TICKET 2
+test("bare bones test should pass");
