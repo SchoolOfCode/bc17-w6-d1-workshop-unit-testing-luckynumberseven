@@ -1,5 +1,3 @@
-
-
 export const ROCK = "rock";
 export const PAPER = "paper";
 export const SCISSORS = "scissors";
@@ -32,14 +30,7 @@ export const LOSS = "loss";
  * If either of the human move or computer move is unsupported/invalid, then an error should be thrown.
  */
 
-
 export function calculateRoundResult(playerMove, computerMove) {
-  if (ROCK === playerMove && ROCK === computerMove) {
-    return {
-      outcome: DRAW,
-      message: "Both players chose rock. It's a draw.",
-    };
-  }
   // Player wins
   if (playerMove === PAPER && computerMove === ROCK) {
     return {
@@ -81,6 +72,12 @@ export function calculateRoundResult(playerMove, computerMove) {
   }
 
   // Player draws
+  if (playerMove === ROCK && computerMove === ROCK) {
+    return {
+      outcome: DRAW,
+      message: "Both players chose rock. It's a draw.",
+    };
+  }
   if (playerMove === SCISSORS && computerMove === SCISSORS) {
     return {
       outcome: DRAW,
@@ -93,17 +90,13 @@ export function calculateRoundResult(playerMove, computerMove) {
       message: "Player chose paper and computer chose paper. It's a draw.",
     };
   }
-  if (playerMove === SCISSORS && computerMove === SCISSORS) {
-    return {
-      outcome: DRAW,
-      message: "Both players chose scissors. It's a draw.",
-    };
-  }
 
   throw new Error(
     `Invalid player move (${playerMove}) or computer move ${computerMove}`
   );
 }
+
+console.log(calculateRoundResult(ROCK, ROCK));
 
 // should randomly generate a computer move (one of the ROCK, PAPER or SCISSORS constants above)
 // each option should have an equal chance of being picked
