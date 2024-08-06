@@ -36,28 +36,31 @@ export function calculateRoundResult(playerMove, computerMove) {
       message: "Both players chose rock. It's a draw.",
     };
   }
-  // if (playerMove === ROCK && computerMove === PAPER) {
-  //   return {
-  //     outcome: LOSS,
-  //     message: "Player chose rock and computer chose paper. Computer wins.",
-  //   };
-  // }
-  if (playerMove === ROCK && computerMove === PAPER) {
-    return {
-      outcome: LOSS,
-      message: "Player chose rock and computer chose paper. Computer wins",
-    };
-  }
+  // Player wins
   if (playerMove === PAPER && computerMove === ROCK) {
     return {
       outcome: WIN,
       message: "Player chose paper and computer chose rock. Player wins.",
     };
   }
-  if (playerMove === SCISSORS && computerMove === SCISSORS) {
+  if (playerMove === ROCK && computerMove === SCISSORS) {
     return {
-      outcome: DRAW,
-      message: "Both players chose scissors. It's a draw.",
+      outcome: WIN,
+      message: "Player chose rock and computer chose scissors. Player wins.",
+    };
+  }
+  if (playerMove === SCISSORS && computerMove === PAPER) {
+    return {
+      outcome: WIN,
+      message: "Player chose scissors and computer chose rock. Player wins.",
+    };
+  }
+
+  // Player losses
+  if (playerMove === ROCK && computerMove === PAPER) {
+    return {
+      outcome: LOSS,
+      message: "Player chose rock and computer chose paper. Computer wins",
     };
   }
   if (playerMove === PAPER && computerMove === SCISSORS) {
@@ -72,6 +75,14 @@ export function calculateRoundResult(playerMove, computerMove) {
       message: "Player chose scissors and computer chose rock. Computer wins.",
     };
   }
+
+  // Player draws
+  if (playerMove === SCISSORS && computerMove === SCISSORS) {
+    return {
+      outcome: DRAW,
+      message: "Both players chose scissors. It's a draw.",
+    };
+  }
   if (playerMove === PAPER && computerMove === PAPER) {
     return {
       outcome: DRAW,
@@ -84,6 +95,7 @@ export function calculateRoundResult(playerMove, computerMove) {
       message: "Both players chose scissors. It's a draw.",
     };
   }
+
   throw new Error(
     `Invalid player move (${playerMove}) or computer move ${computerMove}`
   );
@@ -142,14 +154,16 @@ function gameLoop() {
     computerScoreCounter: 0,
     drawCounter: 0,
   };
+
   do {
     const playerMove = prompt(`Enter either 'rock', 'paper' or 'scissors'`)
       ?.toLowerCase()
       .trim();
 
-    if (undefined === playerMove) {
+    if (playerMove === undefined) {
       return;
     }
+
     const computerMove = generateComputerMove();
     const round = calculateRoundResult(playerMove, computerMove);
     scores = calculateNewScores(scores, round);
