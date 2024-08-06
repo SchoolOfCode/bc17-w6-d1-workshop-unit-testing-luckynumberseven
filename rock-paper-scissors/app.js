@@ -1,3 +1,5 @@
+
+
 export const ROCK = "rock";
 export const PAPER = "paper";
 export const SCISSORS = "scissors";
@@ -29,6 +31,8 @@ export const LOSS = "loss";
  * The normal rules of rock paper scissors apply i.e. rock beats scissors, scissors beat paper, paper beats rock.
  * If either of the human move or computer move is unsupported/invalid, then an error should be thrown.
  */
+
+
 export function calculateRoundResult(playerMove, computerMove) {
   if (ROCK === playerMove && ROCK === computerMove) {
     return {
@@ -147,7 +151,7 @@ export function calculateNewScores({ ...scores }, outcome) {
   return scores;
 }
 
-function gameLoop() {
+export function gameLoop() {
   let shouldPlayAgain;
   let scores = {
     playerScoreCounter: 0,
